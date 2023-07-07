@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { urlFor } from "../sanity";
-import Currency from "react-currency-formatter";
+import { TextInputMask } from "react-native-masked-text";
 
 const BasketScreen = () => {
 	const navigation = useNavigation();
@@ -77,9 +77,18 @@ const BasketScreen = () => {
 								className="h-12 w-12 rounded-full"
 							/>
 							<Text className="flex-1">{items[0]?.name}</Text>
-							<Text className="text-gray-600">
-								<Currency quantity={items[0]?.price} currency="IDR" />
-							</Text>
+							<TextInputMask
+								type={"money"}
+								value={items[0]?.price}
+								options={{
+									precision: 0,
+									separator: ",",
+									delimiter: ".",
+									unit: "Rp",
+									suffixUnit: "",
+								}}
+								className="text-gray-600"
+							/>
 
 							<TouchableOpacity>
 								<Text
@@ -98,23 +107,50 @@ const BasketScreen = () => {
 					{/* subtotal */}
 					<View className="flex-row justify-between">
 						<Text className="text-gray-400">Subtotal</Text>
-						<Text className="text-gray-400">
-							<Currency quantity={basketTotal} currency="IDR" />
-						</Text>
+						<TextInputMask
+							type={"money"}
+							value={basketTotal}
+							options={{
+								precision: 0,
+								separator: ",",
+								delimiter: ".",
+								unit: "Rp",
+								suffixUnit: "",
+							}}
+							className="text-gray-400"
+						/>
 					</View>
 					{/* delivery fee */}
 					<View className="flex-row justify-between">
 						<Text className="text-gray-400">Delivery Fee</Text>
-						<Text className="text-gray-400">
-							<Currency quantity={12000} currency="IDR" />
-						</Text>
+						<TextInputMask
+							type={"money"}
+							value={12000}
+							options={{
+								precision: 0,
+								separator: ",",
+								delimiter: ".",
+								unit: "Rp",
+								suffixUnit: "",
+							}}
+							className="text-gray-400"
+						/>
 					</View>
 					{/* total order */}
 					<View className="flex-row justify-between">
 						<Text>Order Total</Text>
-						<Text className="font-extrabold">
-							<Currency quantity={basketTotal + 12000} currency="IDR" />
-						</Text>
+						<TextInputMask
+							type={"money"}
+							value={basketTotal + 12000}
+							options={{
+								precision: 0,
+								separator: ",",
+								delimiter: ".",
+								unit: "Rp",
+								suffixUnit: "",
+							}}
+							className="font-extrabold"
+						/>
 					</View>
 					{/* order button */}
 					<TouchableOpacity

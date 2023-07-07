@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import Currency from "react-currency-formatter";
 import { urlFor } from "../sanity";
 import { Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
@@ -11,6 +10,7 @@ import {
 	selectBasketItemsWithId,
 } from "../features/basketSlice";
 import { createSelector } from "@reduxjs/toolkit";
+import { TextInputMask } from "react-native-masked-text";
 
 const DishRow = ({ id, name, shortDescription, price, image }) => {
 	const [isPressed, setIsPressed] = useState(false);
@@ -38,9 +38,19 @@ const DishRow = ({ id, name, shortDescription, price, image }) => {
 					<View className="flex-1 pr-2">
 						<Text className="text-lg mb-1">{name}</Text>
 						<Text className="text-gray-400">{shortDescription}</Text>
-						<Text className="text-gray-400 mt-2">
-							<Currency quantity={price} currency="IDR" />
-						</Text>
+						<TextInputMask
+							type={"money"}
+							options={{
+								precision: 0,
+								separator: ",",
+								delimiter: ".",
+								unit: "Rp. ",
+								suffixUnit: "",
+							}}
+							value={price}
+							editable={false}
+							className="text-gray-500 mt-2 text-lg"
+						/>
 					</View>
 					<View>
 						<Image
